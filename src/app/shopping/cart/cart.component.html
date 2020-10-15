@@ -1,0 +1,42 @@
+<div class="table-responsive">
+
+    <h3 *ngIf='!items.length'>Your Cart is empty</h3>
+    <table class="table table-bordered" *ngIf='items.length'>
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let i of items;let in=index'>
+                <td>
+                    <input disabled style="width:39%;border: ridge;" type="number" [value]="i.qunatity"
+                        class="form-control p-0" id="usr">
+                </td>
+                <td class="pointer" (click)='navigate(i.id)'>{{i.name}}</td>
+                <td>{{gs.discountedPrice(i.price * i.qunatity)}}</td>
+                <td>{{gs.discountedPrice(i.price * i.qunatity)}}</td>
+                <td><button (click)='remove(i,in)' class="btn btn-danger"
+                        style="background-color: white;  color: gray;">Remove</button></td>
+            </tr>
+            <tr>
+                <td class="text-right " colspan="3">Total: </td>
+                <td>{{gs.discountedPrice(totolAmount(items))}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="d-flex justify-content-center" *ngIf='items.length'>
+    <button *ngIf='!gs.isDiscountApplicable' (click)='applyCoupon()' class="btn btn-default mr-2" style="border-color: slategray; background-color: white;  color: gray;">Apply
+        Coupon</button><br>
+    <button *ngIf='gs.isDiscountApplicable' (click)='removeCoupon()' class="btn btn-default mr-2" style="border-color: slategray; background-color: white;  color: gray;">
+        Coupon Applied</button><br>
+    <button class="btn btn-info mr-2" (click)='navigateToStore()' style="background-color: white;  color: gray;">Continue Shopping</button>
+    <button class="btn btn-danger mr-2" (click)='checkOut()'
+        style="border-color: black;background-color: white;  color: gray;">Checkout</button>
+</div>

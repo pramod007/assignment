@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr';
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (min-width: 691px) {
+  .icon {
+    width: 2%;
+  }
+  .options {
+    display: visible;
+  }
+  .nav {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 690px) {
+  .icon {
+    width: 4%;
+  }
+
+  .options {
+    display: none;
+  }
+
+  .nav {
+    display: visible;
+  }
+
+
+}
+
+.card-rounded {
+  border-radius: 4%;
+}
+
+.pointer{
+  cursor: pointer;
+}

@@ -1,0 +1,68 @@
+<div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+
+    <div class=" col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
+
+        <ng-container *ngFor='let i of item.images'>
+            <div style="border: 1px solid gray;" class="col-12 mb-1 pointer" (click)='changeImage(i)'>
+                <img style="width: 80%;height: 80%;" [src]='i'>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class=" col-8 col-sm-8 col-md-4 col-lg-4 col-xl-4 text-center">
+        <div style="border: 1px  black" class="col-12">
+            <img id='im' style="width: 80%;height: 80%;" [src]='item.images[0]'>
+        </div>
+    </div>
+
+    <div class=" col-12 col-sm-12 col-md-4 col-lg-5 col-xl-5">
+        <div>
+            <h5 style="font-weight: 200;" class="m-1 pt-2">{{item?.name}}</h5>
+            <hr class="m-1">
+            <p style="font-family: none;" [ngClass]='{"line":gs.isDiscountApplicable }' class="m-0 p-0 font-weight-bold">{{item?.price}} $</p>
+            <p style="font-family: none;" class="m-0 p-0 font-weight-bold" *ngIf='gs.isDiscountApplicable'>Discount Price: <span> {{gs.discountedPrice(item.price)+ '$'}}</span></p>
+            <p style="font-family: none;">(Exclusive of all taxes)</p>
+            <p style="font-family: none;">{{item?.description}}</p>
+        </div>
+
+    </div>
+
+    <div class=" col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="border d-flex flex-wrap justify-content-center">
+
+            <div class="m-1">
+                <button class="btn btn-default" (click)='addToCart()'
+                    style="border-color: slategray; background-color: white;  color: gray;">Add to cart
+                    {{item.qunatity? item.qunatity:'' }}</button><br>
+            </div>
+            <div class="m-1">
+                <button class="btn btn-info" (click)='aadToWishlist()' *ngIf='!item?.wish'
+                    style="border-color: slategray; background-color: white;  color: gray;">Add
+                    to wish list</button>
+
+                <button class="btn btn-info" (click)='removeFromWishlist()' *ngIf='item?.wish'
+                    style="border-color: slategray; background-color: honeydew;  color: gray;">Added
+                    in wish list</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class=" row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-4">
+        <h5>Releted Products</h5>
+
+        <div class="d-flex col-12 row">
+            <ng-container *ngFor='let p of gs.items'>
+                <ng-container *ngIf='item.id != p.id'>
+                    <div class="pointer col-6 col-sm-2 col-md-2 col-lg-1 col-xl-1" (click)='navigate(p.id)'>
+                        <img style="width: 60%;" [src]='p.images[0]'>
+                        <p class="text-primary small  mt-1 mb-0 p-0">{{p.name}}</p>
+                        <p class="text-danger m-0 p-0">{{p.price}}$</p>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

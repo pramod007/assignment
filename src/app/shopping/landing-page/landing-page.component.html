@@ -1,0 +1,59 @@
+<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row">
+
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+        <ul class="list-group">
+            <ng-container *ngFor='let o of options;let i=index'>
+                <li class="list-group-item m-2 pointer" [ngClass]="{'bg':selected == i}"
+                    style="border: 1px solid blue;color: blue" (click)='filter(o,i)'>{{o}}</li>
+            </ng-container>
+        </ul>
+    </div>
+
+
+
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 text-left">
+        <ng-container *ngFor='let c of list; let i=index'>
+            <ng-container *ngIf='((perPage * activePage)-perPage < i+1 ) && ((perPage * activePage) >= i+1)'>
+                <div class="card m-1">
+                    <div class="card-body pb-0 pointer" (click)='navigate(c.id)'>
+                        <div class="d-flex justify-content-between">
+                            <h3>{{c.name}}</h3>
+                            <p class="text-right" *ngIf='!gs.isDiscountApplicable'>{{c.price + '$'}}</p>
+                            <p class="text-right" *ngIf='gs.isDiscountApplicable'>{{gs.discountedPrice(c.price)+ '$'}}
+                            </p>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p>{{c.shortDescription}}</p>
+
+                            <p class="text-right">Product Description</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+
+
+
+
+        <div class="row justify-content-between">
+            <div class="form-group col-3">
+                <select class="form-control" [(ngModel)]='perPage' (click)='setPagination()'>
+                    <option>5</option>
+                    <option>10</option>
+                </select>
+            </div>
+
+
+            <div class="mr-3" *ngIf='pages && list.length > 5'>
+                <ul class="pagination">
+                    <li *ngFor='let l of [].constructor(pages);let i=index' [ngClass]="{active : activePage == i+1}"
+                        (click)='setActivePage(i+1)' style="cursor: pointer;"><a>{{i+1}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
